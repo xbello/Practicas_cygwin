@@ -1,0 +1,65 @@
+############
+INTRODUCCIÓN
+terminal, shell, command line
+(tab key)
+cp, mv, rm
+mkdir, cd, . .. *
+cat, head, tail, less, more
+sort, uniq, wc
+for, foreach
+cut
+grep
+awk
+sed
+perl
+
+#######################
+PROCESAMIENTO DE TEXTOS
+# ojear un fichero
+cat input.txt
+head input.txt
+head -2 input.txt
+tail input.txt
+less input.txt
+
+# contaje de líneas
+wc -l input.txt
+
+# impresión de la segunda columna
+awk '{print $2}' input.txt
+
+# buscar una palabra
+grep "palabra" input.txt
+# buscar un patrón
+grep -P "\bpalabra\b" input.txt
+# cruzar input con fichero de patrones en 1 columna
+# (dos2unix patrones.txt puede ser necesario)
+grep -f patrones.txt input.txt
+
+# eliminar las dos primeras columnas
+cut -f 3- input.txt
+awk '{for (i=3; i<NF; i++) printf $i " "; print $NF}' input.txt
+
+#####################
+AGRUPACIÓN DE ÓRDENES
+
+# redirección
+cat input.txt > output.txt
+
+# concatenación
+cat input.txt | wc -l
+
+############################
+MANEJO DE FICHEROS EN BLOQUE
+
+# listar todos los ficheros con extensión .txt
+ls *.txt
+for file in *.txt; do echo $file; done
+
+# copiar todos los ficheros .txt cambiando su extensión a .tab
+for file in *.txt; do cp $file ${file/.txt/.tab}; done
+
+# cruzar dos ficheros encontrando variantes comunes
+for file in *.tab; do awk 'FS="\t"{print $27"\t"$28"\t"}' $file > $file.chrpos; done
+grep -f gatk.tab.chrpos life.tab > life.filtered.tab
+grep -f life.tab.chrpos gatk.tab > gatk.filtered.tab
