@@ -1,4 +1,4 @@
-Introducci&oacute;n
+Introducción
 ============
 
     terminal, shell, command line
@@ -26,12 +26,12 @@ Ojear un fichero
     tail input.txt
     less input.txt
 
-Contaje de l&iacute;neas
+Contaje de líneas
 -----------------
 
     wc -l input.txt
 
-Impresi&oacute;n de la segunda columna
+Impresión de la segunda columna
 -------------------------------
 
     awk '{print $2}' input.txt
@@ -41,7 +41,7 @@ Buscar una palabra
 
     grep "palabra" input.txt
 
-Buscar un patr&oacute;n
+Buscar un patrón
 ----------------
 
     grep -P "\bpalabra\b" input.txt
@@ -58,15 +58,15 @@ Eliminar las dos primeras columnas
     cut -f 3- input.txt
     awk '{for (i=3; i<NF; i++) printf $i " "; print $NF}' input.txt
 
-Agrupaci&oacute;n de &oacute;rdenes
+Agrupación de órdenes
 =====================
 
-Redirecci&oacute;n
------------------
+Redirección
+-----------
 
     cat input.txt > output.txt
 
-Concatenaci&oacute;n
+Concatenación
 -------------
 
     cat input.txt | wc -l
@@ -74,13 +74,13 @@ Concatenaci&oacute;n
 Manejo de ficheros en bloque
 ============================
 
-Listar todos los ficheros con extensi&oacute;n .txt
+Listar todos los ficheros con extensión .txt
 --------------------------------------------
 
     ls *.txt
     for file in *.txt; do echo $file; done
 
-Copiar todos los ficheros .txt cambiando su extensi&oacute;n a .tab
+Copiar todos los ficheros .txt cambiando su extensión a .tab
 ------------------------------------------------------------
     for file in *.txt; do cp $file ${file/.txt/.tab}; done
 
