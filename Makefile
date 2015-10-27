@@ -6,6 +6,6 @@ OUTPUT_FILE=$(OUTPUT_DIR)index.html
 
 all:
 	cat $(INPUT_FILES)header.html > $(OUTPUT_FILE)
-	markdown-calibre trucos.txt >> $(OUTPUT_FILE)
-	cat $(INPUT_FILES)header.html >> $(OUTPUT_FILE)
+	markdown_py trucos.txt -x toc >> $(OUTPUT_FILE)
+	cat $(INPUT_FILES)footer.html >> $(OUTPUT_FILE)
 	cp $(STATIC) $(OUTPUT_DIR) -r

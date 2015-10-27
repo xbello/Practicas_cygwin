@@ -1,6 +1,8 @@
 Introducción
 ============
 
+[TOC]
+
     terminal, shell, command line
     (tab key)
     cp, mv, rm
