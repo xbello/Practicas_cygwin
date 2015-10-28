@@ -108,7 +108,7 @@ Tenemos un archivo con los posibles alelos para cada individuo, con líneas de e
   - Cuarta y quinta columnas son los alelos referencia y variante.
   - Cada grupo de tres números siguientes es la posibilidad de un individuo para ser homocigoto para el alelo de referencia, para el variante y ser heterocigoto respectivamente.
 
-Intentar:
+**Intentar**:
 
 1. Obtener sólo las cinco primeras columnas en pantalla.
 
@@ -123,4 +123,24 @@ Intentar:
 <div class="collapse" id="ex_12-pista_1"><div class="well">Para comprobar el valor en cada columna se puede utilizar <code>awk</code></div></div>
 <div class="collapse" id="ex_12-pista_2"><div class="well">Los indels pueden identificarse porque uno de los dos alelos es igual a <code>-</code></div></div>
 <div class="collapse" id="ex_12_solucion"><div class="well"><code>awk '{if (($4) == "-" || ($5) == "-") print;}' Ejercicio_1.txt</code></div></div>
+
+Ejercicio 2
+-----------
+
+Tenemos un archivo procedente de una anotación con Annovar, con líneas de esta forma:
+
+    ljb23_all	0.01,0.99,D,0.321,B,0.09,B,0.000,1.0,D,1.000,1.000,D,0.205,0.499,N,-0.09,0.401,T,-0.865,0.284,T,0.153,T,5.98,2.837,20.437	1	218520000	218520000	G	C
+
+- La primera columna indica la tabla de anotación.
+- La segunda columna son las anotaciones separadas por comas.
+- Las siguientes cinco columnas son la posición de la variante.
+
+**Intentar**:
+
+1. Transformar las comas de la segunda columna en tabulados, para que un programa como Excel pueda leer mejor el archivo.
+
+<a class="btn btn-primary" role="button" data-toggle="collapse" href="#ex_21-pista_1">Pista 1</a><a class="btn btn-primary" role="button" data-toggle="collapse" href="#ex_21-pista_2">Pista 2</a><a class="btn btn-primary" role="button" data-toggle="collapse" href="#ex_21-solucion">Solución</a>
+<div class="collapse" id="ex_21-pista_1"><div class="well">El comando más recomendable es <code>sed</code>.</div></div>
+<div class="collapse" id="ex_21-pista_2"><div class="well">El carácter especial TABULADOR se marca como <code>\t</code>.</div></div>
+<div class="collapse" id="ex_21-solucion"><div class="well"><code>sed 's/,/\t/g' Ejercicio_2.txt</code>.</div></div>
 
