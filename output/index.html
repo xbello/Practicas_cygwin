@@ -1,0 +1,161 @@
+<html>
+ <head>
+  <title>Bioinformatics for dummies</title>
+  <meta charset="utf-8" />
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <script src="js/jquery.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+ </head>
+ <body>
+<h1 id="introduccion">Introducción</h1>
+<div class="toc">
+<ul>
+<li><a href="#introduccion">Introducción</a></li>
+<li><a href="#procesamiento-de-textos">Procesamiento de textos</a><ul>
+<li><a href="#ojear-un-fichero">Ojear un fichero</a></li>
+<li><a href="#contaje-de-lineas">Contaje de líneas</a></li>
+<li><a href="#impresion-de-la-segunda-columna">Impresión de la segunda columna</a></li>
+<li><a href="#buscar-una-palabra">Buscar una palabra</a></li>
+<li><a href="#buscar-un-patron">Buscar un patrón</a></li>
+<li><a href="#cruzar-input-con-fichero-de-patrones-en-una-columna">Cruzar input con fichero de patrones en una columna</a></li>
+<li><a href="#eliminar-las-dos-primeras-columnas">Eliminar las dos primeras columnas</a></li>
+</ul>
+</li>
+<li><a href="#agrupacion-de-ordenes">Agrupación de órdenes</a><ul>
+<li><a href="#redireccion">Redirección</a></li>
+<li><a href="#concatenacion">Concatenación</a></li>
+</ul>
+</li>
+<li><a href="#manejo-de-ficheros-en-bloque">Manejo de ficheros en bloque</a><ul>
+<li><a href="#listar-todos-los-ficheros-con-extension-txt">Listar todos los ficheros con extensión .txt</a></li>
+<li><a href="#copiar-todos-los-ficheros-txt-cambiando-su-extension-a-tab">Copiar todos los ficheros .txt cambiando su extensión a .tab</a></li>
+<li><a href="#cruzar-dos-ficheros-encontrando-variantes-comunes">Cruzar dos ficheros encontrando variantes comunes</a></li>
+</ul>
+</li>
+<li><a href="#auto-evaluacion">Auto-evaluación</a><ul>
+<li><a href="#ejercicio-1">Ejercicio 1</a></li>
+<li><a href="#ejercicio-2">Ejercicio 2</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<pre><code>terminal, shell, command line
+(tab key)
+cp, mv, rm
+mkdir, cd, . .. *
+cat, head, tail, less, more
+sort, uniq, wc
+for, foreach
+cut
+grep
+awk
+sed
+perl
+</code></pre>
+<h1 id="procesamiento-de-textos">Procesamiento de textos</h1>
+<h2 id="ojear-un-fichero">Ojear un fichero</h2>
+<pre><code>cat input.txt
+head input.txt
+head -2 input.txt
+tail input.txt
+less input.txt
+</code></pre>
+<h2 id="contaje-de-lineas">Contaje de líneas</h2>
+<pre><code>wc -l input.txt
+</code></pre>
+<h2 id="impresion-de-la-segunda-columna">Impresión de la segunda columna</h2>
+<pre><code>awk '{print $2}' input.txt
+</code></pre>
+<h2 id="buscar-una-palabra">Buscar una palabra</h2>
+<pre><code>grep "palabra" input.txt
+</code></pre>
+<h2 id="buscar-un-patron">Buscar un patrón</h2>
+<pre><code>grep -P "\bpalabra\b" input.txt
+</code></pre>
+<h2 id="cruzar-input-con-fichero-de-patrones-en-una-columna">Cruzar input con fichero de patrones en una columna</h2>
+<p>(dos2unix patrones.txt puede ser necesario)</p>
+<pre><code>grep -f patrones.txt input.txt
+</code></pre>
+<h2 id="eliminar-las-dos-primeras-columnas">Eliminar las dos primeras columnas</h2>
+<pre><code>cut -f 3- input.txt
+awk '{for (i=3; i&lt;NF; i++) printf $i " "; print $NF}' input.txt
+</code></pre>
+<h1 id="agrupacion-de-ordenes">Agrupación de órdenes</h1>
+<h2 id="redireccion">Redirección</h2>
+<pre><code>cat input.txt &gt; output.txt
+</code></pre>
+<h2 id="concatenacion">Concatenación</h2>
+<pre><code>cat input.txt | wc -l
+</code></pre>
+<h1 id="manejo-de-ficheros-en-bloque">Manejo de ficheros en bloque</h1>
+<h2 id="listar-todos-los-ficheros-con-extension-txt">Listar todos los ficheros con extensión .txt</h2>
+<pre><code>ls *.txt
+for file in *.txt; do echo $file; done
+</code></pre>
+<h2 id="copiar-todos-los-ficheros-txt-cambiando-su-extension-a-tab">Copiar todos los ficheros .txt cambiando su extensión a .tab</h2>
+<pre><code>for file in *.txt; do cp $file ${file/.txt/.tab}; done
+</code></pre>
+<h2 id="cruzar-dos-ficheros-encontrando-variantes-comunes">Cruzar dos ficheros encontrando variantes comunes</h2>
+<pre><code>for file in *.tab; do awk 'FS="\t"{print $27"\t"$28"\t"}' $file &gt; $file.chrpos; done
+grep -f gatk.tab.chrpos life.tab &gt; life.filtered.tab
+grep -f life.tab.chrpos gatk.tab &gt; gatk.filtered.tab
+</code></pre>
+<h1 id="auto-evaluacion">Auto-evaluación</h1>
+<h2 id="ejercicio-1">Ejercicio 1</h2>
+<p>Tenemos un archivo con los posibles alelos para cada individuo, con líneas de esta forma:</p>
+<pre><code>--- rs149529999 60479 C T 1 0 0 1 0 0 etc.
+</code></pre>
+<ul>
+<li>Primera columna es un identificador.</li>
+<li>Segunda columna es un rs.</li>
+<li>Tercera columna es una posición cromosómica.</li>
+<li>Cuarta y quinta columnas son los alelos referencia y variante.</li>
+<li>Cada grupo de tres números siguientes es la posibilidad de un individuo para ser homocigoto para el alelo de referencia, para el variante y ser heterocigoto respectivamente.</li>
+</ul>
+<p><strong>Intentar</strong>:</p>
+<ul>
+<li>Obtener sólo las cinco primeras columnas en pantalla.</li>
+</ul>
+<p><a class="btn btn-primary" role="button" data-toggle="collapse" href="#ex_11-pista_1">Pista 1</a><a class="btn btn-primary" role="button" data-toggle="collapse" href="#ex_11-pista_2">Pista 2</a><a class="btn btn-primary" role="button" data-toggle="collapse" href="#ex_11-solucion">Solución</a>
+<div class="collapse" id="ex_11-pista_1"><div class="well">Se utiliza el comando <code>cut</code>. Las opciones se pueden comprobar con <code>man cut</code>.</div></div>
+<div class="collapse" id="ex_11-pista_2"><div class="well">Las columnas están divididas con espacios. Cut define los campos con el flag <code>cut -d " "</code>.</div></div>
+<div class="collapse" id="ex_11-solucion"><div class="well"><code>cut -d " " -f 1-5</code>.</div></div></p>
+<ul>
+<li>Obtener de este fichero sólo las variantes SNP, descartando los indels.</li>
+</ul>
+<p><a class="btn btn-primary" role="button" data-toggle="collapse" href="#ex_12-pista_1">Pista 1</a><a class="btn btn-primary" role="button" data-toggle="collapse" href="#ex_12-pista_2">Pista 2</a><a class="btn btn-primary" role="button" data-toggle="collapse" href="#ex_12_solucion">Solución</a>
+<div class="collapse" id="ex_12-pista_1"><div class="well">Para comprobar el valor en cada columna se puede utilizar <code>awk</code></div></div>
+<div class="collapse" id="ex_12-pista_2"><div class="well">Los indels pueden identificarse porque uno de los dos alelos es igual a <code>-</code></div></div>
+<div class="collapse" id="ex_12_solucion"><div class="well"><code>awk '{if (($4) == "-" || ($5) == "-") print;}' Ejercicio_1.txt</code></div></div></p>
+<h2 id="ejercicio-2">Ejercicio 2</h2>
+<p>Tenemos un archivo procedente de una anotación con Annovar, con líneas de esta forma:</p>
+<pre><code>ljb23_all   0.01,0.99,D,0.321,B,0.09,B,0.000,1.0,D,1.000,1.000,D,0.205,0.499,N,-0.09,0.401,T,-0.865,0.284,T,0.153,T,5.98,2.837,20.437   1   218520000   218520000   G   C
+</code></pre>
+<ul>
+<li>La primera columna indica la tabla de anotación.</li>
+<li>La segunda columna son las anotaciones separadas por comas.</li>
+<li>Las siguientes cinco columnas son la posición de la variante.</li>
+</ul>
+<p><strong>Intentar</strong>:</p>
+<ul>
+<li>Transformar las comas de la segunda columna en tabulados, para que un programa como Excel pueda leer mejor el archivo.</li>
+</ul>
+<p><a class="btn btn-primary" role="button" data-toggle="collapse" href="#ex_21-pista_1">Pista 1</a><a class="btn btn-primary" role="button" data-toggle="collapse" href="#ex_21-pista_2">Pista 2</a><a class="btn btn-primary" role="button" data-toggle="collapse" href="#ex_21-solucion">Solución</a>
+<div class="collapse" id="ex_21-pista_1"><div class="well">El comando más recomendable es <code>sed</code>.</div></div>
+<div class="collapse" id="ex_21-pista_2"><div class="well">El carácter especial TABULADOR se marca como <code>\t</code>.</div></div>
+<div class="collapse" id="ex_21-solucion"><div class="well"><code>sed 's/,/\t/g' Ejercicio_2.txt</code></div></div></p>
+<ul>
+<li>Ordenar el archivo de mayor a menor score en la columna 7 de anotaciones.</li>
+</ul>
+<p><a class="btn btn-primary" role="button" data-toggle="collapse" href="#ex_22-pista_1">Pista 1</a><a class="btn btn-primary" role="button" data-toggle="collapse" href="#ex_22-pista_2">Pista 2</a><a class="btn btn-primary" role="button" data-toggle="collapse" href="#ex_22-solucion">Solución</a>
+<div class="collapse" id="ex_22-pista_1"><div class="well">El comando más recomendable es <code>sort</code>.</div></div>
+<div class="collapse" id="ex_22-pista_2"><div class="well">Para especificar un campo se indica <code>-kX</code>, siendo X el número del campo.</div></div>
+<div class="collapse" id="ex_22-solucion"><div class="well"><code>sort -k7,7n Ejercicio_2.txt</code></div></div></p>
+<ul>
+<li>Los dos pasos anteriores a la vez!</li>
+</ul>
+<p>Y guardar los resultados en un archivo "Resultados.tab"</p>
+<p><a class="btn btn-primary" role="button" data-toggle="collapse" href="#ex_23-pista_1">Pista 1</a><a class="btn btn-primary" role="button" data-toggle="collapse" href="#ex_23-solucion">Solución</a>
+<div class="collapse" id="ex_23-pista_1"><div class="well">La salida de un comando se redirige al siguiente con <code>|</code>.</div></div>
+<div class="collapse" id="ex_23-solucion"><div class="well"><code>sed 's/,/\t/g' Ejercicio_2.txt | sort -k7,7n &gt; Resultados.tab</code></div></div></p> </body>
+</html>
