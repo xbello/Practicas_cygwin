@@ -112,21 +112,27 @@ Tenemos un archivo con los posibles alelos para cada individuo, con líneas de e
 
 * Obtener sólo las cinco primeras columnas en pantalla.
 
+<div class="btn-group" role="group">
 <a class="btn btn-primary" role="button" data-toggle="collapse" href="#ex_11-pista_1">Pista 1</a><a class="btn btn-primary" role="button" data-toggle="collapse" href="#ex_11-pista_2">Pista 2</a><a class="btn btn-primary" role="button" data-toggle="collapse" href="#ex_11-solucion">Solución</a>
+</div>
 <div class="collapse" id="ex_11-pista_1"><div class="well">Se utiliza el comando <code>cut</code>. Las opciones se pueden comprobar con <code>man cut</code>.</div></div>
 <div class="collapse" id="ex_11-pista_2"><div class="well">Las columnas están divididas con espacios. Cut define los campos con el flag <code>cut -d " "</code>.</div></div>
 <div class="collapse" id="ex_11-solucion"><div class="well"><code>cut -d " " -f 1-5</code>.</div></div>
 
 * Obtener de este fichero sólo las variantes SNP, descartando los indels.
 
+<div class="btn-group" role="group">
 <a class="btn btn-primary" role="button" data-toggle="collapse" href="#ex_12-pista_1">Pista 1</a><a class="btn btn-primary" role="button" data-toggle="collapse" href="#ex_12-pista_2">Pista 2</a><a class="btn btn-primary" role="button" data-toggle="collapse" href="#ex_12_solucion">Solución</a>
+</div>
 <div class="collapse" id="ex_12-pista_1"><div class="well">Para comprobar el valor en cada columna se puede utilizar <code>awk</code></div></div>
 <div class="collapse" id="ex_12-pista_2"><div class="well">Los indels pueden identificarse porque uno de los dos alelos es igual a <code>-</code></div></div>
 <div class="collapse" id="ex_12_solucion"><div class="well"><code>awk '{if (($4) != "-" && ($5) != "-") print;}' Ejercicio_1.txt</code></div></div>
 
 * Y si quisiésemos capturar los indels?
 
+<div class="btn-group" role="group">
 <a class="btn btn-primary" role="button" data-toggle="collapse" href="#ex_13_solucion">Solución</a>
+</div>
 <div class="collapse" id="ex_13_solucion"><div class="well"><code>awk '{if (($4) == "-" || ($5) == "-") print;}' Ejercicio_1.txt</code></div></div>
 
 Ejercicio 2
@@ -144,14 +150,18 @@ Tenemos un archivo procedente de una anotación con Annovar, con líneas de esta
 
 * Transformar las comas de la segunda columna en tabulados, para que un programa como Excel pueda leer mejor el archivo.
 
+<div class="btn-group" role="group">
 <a class="btn btn-primary" role="button" data-toggle="collapse" href="#ex_21-pista_1">Pista 1</a><a class="btn btn-primary" role="button" data-toggle="collapse" href="#ex_21-pista_2">Pista 2</a><a class="btn btn-primary" role="button" data-toggle="collapse" href="#ex_21-solucion">Solución</a>
+</div>
 <div class="collapse" id="ex_21-pista_1"><div class="well">El comando más recomendable es <code>sed</code>.</div></div>
 <div class="collapse" id="ex_21-pista_2"><div class="well">El carácter especial TABULADOR se marca como <code>\t</code>.</div></div>
 <div class="collapse" id="ex_21-solucion"><div class="well"><code>sed 's/,/\t/g' Ejercicio_2.txt</code></div></div>
 
 * Ordenar el archivo de mayor a menor score en la columna 7 de anotaciones.
 
+<div class="btn-group" role="group">
 <a class="btn btn-primary" role="button" data-toggle="collapse" href="#ex_22-pista_1">Pista 1</a><a class="btn btn-primary" role="button" data-toggle="collapse" href="#ex_22-pista_2">Pista 2</a><a class="btn btn-primary" role="button" data-toggle="collapse" href="#ex_22-solucion">Solución</a>
+</div>
 <div class="collapse" id="ex_22-pista_1"><div class="well">El comando más recomendable es <code>sort</code>.</div></div>
 <div class="collapse" id="ex_22-pista_2"><div class="well">Para especificar un campo se indica <code>-kX</code>, siendo X el número del campo.</div></div>
 <div class="collapse" id="ex_22-solucion"><div class="well"><code>sort -k7,7n Ejercicio_2.txt</code></div></div>
@@ -160,6 +170,8 @@ Tenemos un archivo procedente de una anotación con Annovar, con líneas de esta
 
 Y guardar los resultados en un archivo "Resultados.tab"
 
+<div class="btn-group" role="group">
 <a class="btn btn-primary" role="button" data-toggle="collapse" href="#ex_23-pista_1">Pista 1</a><a class="btn btn-primary" role="button" data-toggle="collapse" href="#ex_23-solucion">Solución</a>
+</div>
 <div class="collapse" id="ex_23-pista_1"><div class="well">La salida de un comando se redirige al siguiente con <code>|</code>.</div></div>
 <div class="collapse" id="ex_23-solucion"><div class="well"><code>sed 's/,/\t/g' Ejercicio_2.txt | sort -k7,7n > Resultados.tab</code></div></div>
