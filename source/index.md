@@ -113,14 +113,14 @@ Intentar:
 1. Obtener sólo las cinco primeras columnas en pantalla.
 
 <a class="btn btn-primary" role="button" data-toggle="collapse" href="#ex_11-pista_1">Pista 1</a><a class="btn btn-primary" role="button" data-toggle="collapse" href="#ex_11-pista_2">Pista 2</a><a class="btn btn-primary" role="button" data-toggle="collapse" href="#ex_11-solucion">Solución</a>
-<div class="collapse" id="ex_11-pista_1">Se utiliza el comando <code>cut</code>. Las opciones se pueden comprobar con <code>man cut</code>.</div>
-<div class="collapse" id="ex_11-pista_2">Las columnas están divididas con espacios. Cut define los campos con el flag <code>cut -d " "</code>.</div>
-<div class="collapse" id="ex_11-solucion"><code>cut -d " " -f 1-5</code>.</div>
+<div class="collapse" id="ex_11-pista_1"><div class="well">Se utiliza el comando <code>cut</code>. Las opciones se pueden comprobar con <code>man cut</code>.</div></div>
+<div class="collapse" id="ex_11-pista_2"><div class="well">Las columnas están divididas con espacios. Cut define los campos con el flag <code>cut -d " "</code>.</div></div>
+<div class="collapse" id="ex_11-solucion"><div class="well"><code>cut -d " " -f 1-5</code>.</div></div>
 
 2. Obtener de este fichero sólo las variantes SNP, descartando los indels.
 
 <a class="btn btn-primary" role="button" data-toggle="collapse" href="#ex_12-pista_1">Pista 1</a><a class="btn btn-primary" role="button" data-toggle="collapse" href="#ex_12-pista_2">Pista 2</a><a class="btn btn-primary" role="button" data-toggle="collapse" href="#ex_12_solucion">Solución</a>
-<div class="collapse" id="ex_12-pista_1">Para comprobar el valor en cada columna se puede utilizar <code>awk</code></div>
-<div class="collapse" id="ex_12-pista_2">Los indels pueden identificarse porque uno de los dos alelos es igual a <code>-</code></div>
-<div class="collapse" id="ex_12_solucion"><code>awk '{if (($4) == "-" || ($5) == "-") print;}' Ejercicio_1.txt</code></div>
+<div class="collapse" id="ex_12-pista_1"><div class="well">Para comprobar el valor en cada columna se puede utilizar <code>awk</code></div></div>
+<div class="collapse" id="ex_12-pista_2"><div class="well">Los indels pueden identificarse porque uno de los dos alelos es igual a <code>-</code></div></div>
+<div class="collapse" id="ex_12_solucion"><div class="well"><code>awk '{if (($4) == "-" || ($5) == "-") print;}' Ejercicio_1.txt</code></div></div>
 
