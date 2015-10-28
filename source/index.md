@@ -122,7 +122,12 @@ Tenemos un archivo con los posibles alelos para cada individuo, con líneas de e
 <a class="btn btn-primary" role="button" data-toggle="collapse" href="#ex_12-pista_1">Pista 1</a><a class="btn btn-primary" role="button" data-toggle="collapse" href="#ex_12-pista_2">Pista 2</a><a class="btn btn-primary" role="button" data-toggle="collapse" href="#ex_12_solucion">Solución</a>
 <div class="collapse" id="ex_12-pista_1"><div class="well">Para comprobar el valor en cada columna se puede utilizar <code>awk</code></div></div>
 <div class="collapse" id="ex_12-pista_2"><div class="well">Los indels pueden identificarse porque uno de los dos alelos es igual a <code>-</code></div></div>
-<div class="collapse" id="ex_12_solucion"><div class="well"><code>awk '{if (($4) == "-" || ($5) == "-") print;}' Ejercicio_1.txt</code></div></div>
+<div class="collapse" id="ex_12_solucion"><div class="well"><code>awk '{if (($4) != "-" && ($5) != "-") print;}' Ejercicio_1.txt</code></div></div>
+
+* Y si quisiésemos capturar los indels?
+
+<a class="btn btn-primary" role="button" data-toggle="collapse" href="#ex_13_solucion">Solución</a>
+<div class="collapse" id="ex_13_solucion"><div class="well"><code>awk '{if (($4) == "-" || ($5) == "-") print;}' Ejercicio_1.txt</code></div></div>
 
 Ejercicio 2
 -----------
