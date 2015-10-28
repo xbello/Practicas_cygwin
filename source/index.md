@@ -91,3 +91,36 @@ Cruzar dos ficheros encontrando variantes comunes
     for file in *.tab; do awk 'FS="\t"{print $27"\t"$28"\t"}' $file > $file.chrpos; done
     grep -f gatk.tab.chrpos life.tab > life.filtered.tab
     grep -f life.tab.chrpos gatk.tab > gatk.filtered.tab
+
+Auto-evaluación
+===============
+
+Ejercicio 1
+-----------
+
+Tenemos un archivo con los posibles alelos para cada individuo, con líneas de esta forma:
+
+    --- rs149529999 60479 C T 1 0 0 1 0 0 etc.
+
+  - Primera columna es un identificador.
+  - Segunda columna es un rs.
+  - Tercera columna es una posición cromosómica.
+  - Cuarta y quinta columnas son los alelos referencia y variante.
+  - Cada grupo de tres números siguientes es la posibilidad de un individuo para ser homocigoto para el alelo de referencia, para el variante y ser heterocigoto respectivamente.
+
+Intentar:
+
+1. Obtener sólo las cinco primeras columnas en pantalla.
+
+<a class="btn btn-primary" role="button" data-toggle="collapse" href="#ex_11-pista_1">Pista 1</a><a class="btn btn-primary" role="button" data-toggle="collapse" href="#ex_11-pista_2">Pista 2</a><a class="btn btn-primary" role="button" data-toggle="collapse" href="#ex_11-solucion">Solución</a>
+<div class="collapse" id="ex_11-pista_1">Se utiliza el comando <code>cut</code>. Las opciones se pueden comprobar con <code>man cut</code>.</div>
+<div class="collapse" id="ex_11-pista_2">Las columnas están divididas con espacios. Cut define los campos con el flag <code>cut -d " "</code>.</div>
+<div class="collapse" id="ex_11-solucion"><code>cut -d " " -f 1-5</code>.</div>
+
+2. Obtener de este fichero sólo las variantes SNP, descartando los indels.
+
+<a class="btn btn-primary" role="button" data-toggle="collapse" href="#ex_12-pista_1">Pista 1</a><a class="btn btn-primary" role="button" data-toggle="collapse" href="#ex_12-pista_2">Pista 2</a><a class="btn btn-primary" role="button" data-toggle="collapse" href="#ex_12_solucion">Solución</a>
+<div class="collapse" id="ex_12-pista_1">Para comprobar el valor en cada columna se puede utilizar <code>awk</code></div>
+<div class="collapse" id="ex_12-pista_2">Los indels pueden identificarse porque uno de los dos alelos es igual a <code>-</code></div>
+<div class="collapse" id="ex_12_solucion"><code>awk '{if (($4) == "-" || ($5) == "-") print;}' Ejercicio_1.txt</code></div>
+
