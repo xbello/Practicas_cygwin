@@ -3,6 +3,11 @@
   <title>Bioinformatics for dummies</title>
   <meta charset="utf-8" />
   <link href="css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+       padding: 10%;
+    }
+  </style>
   <script src="js/jquery.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
  </head>
@@ -66,12 +71,27 @@ less input.txt
 <h2 id="impresion-de-la-segunda-columna">Impresión de la segunda columna</h2>
 <pre><code>awk '{print $2}' input.txt
 </code></pre>
+<p>E.g. ver la lista de genes del archivo <code>life.tab</code>, en la columna 2:</p>
+<pre><code>awk '{print $2}' life.tab
+</code></pre>
 <h2 id="buscar-una-palabra">Buscar una palabra</h2>
 <pre><code>grep "palabra" input.txt
+</code></pre>
+<p>E.g. ver todas las variantes en el cromosoma 10 (chr10) del archivo <code>life.tab</code>.</p>
+<pre><code>grep "chr10" life.tab
 </code></pre>
 <h2 id="buscar-un-patron">Buscar un patrón</h2>
 <pre><code>grep -P "\bpalabra\b" input.txt
 </code></pre>
+<p>E.g. ver todas las variantes del cromosoma 1, pero no del cromosoma 1?, en el archivo <code>life.tab</code>.</p>
+<div class="alert alert-danger" role="alert">Con este comando obtendremos las variantes en el chr1, pero también el chr10, chr11, chr12, etc.<br />
+<pre><code>grep -P 'chr1' life.tab</code></pre>
+</div>
+
+<div class="alert alert-success" role="alert">Esta es la forma correcta:<br />
+<pre><code>grep -P '\bchr1\b' life.tab</code></pre>
+</div>
+
 <h2 id="cruzar-input-con-fichero-de-patrones-en-una-columna">Cruzar input con fichero de patrones en una columna</h2>
 <p>(dos2unix patrones.txt puede ser necesario)</p>
 <pre><code>grep -f patrones.txt input.txt
@@ -80,6 +100,15 @@ less input.txt
 <pre><code>cut -f 3- input.txt
 awk '{for (i=3; i&lt;NF; i++) printf $i " "; print $NF}' input.txt
 </code></pre>
+<div class="alert alert-info" role="alert">
+
+<ul>
+ <li>NF es una palabra especial (<em>builtin variable</em>) de AWK, significa "Número de Fields (columnas)".</li>
+ <li><a href="http://www.chemie.fu-berlin.de/chemnet/use/info/gawk/gawk_11.html" target="_new">Lista de builtins AWK<span class="glyphicon glyphicon-link"></span></a></li>
+</ul>
+
+</div>
+
 <h1 id="agrupacion-de-ordenes">Agrupación de órdenes</h1>
 <h2 id="redireccion">Redirección</h2>
 <pre><code>cat input.txt &gt; output.txt

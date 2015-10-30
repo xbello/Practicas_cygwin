@@ -38,15 +38,33 @@ Impresión de la segunda columna
 
     awk '{print $2}' input.txt
 
+E.g. ver la lista de genes del archivo `life.tab`, en la columna 2:
+
+    awk '{print $2}' life.tab
+
 Buscar una palabra
 ------------------
 
     grep "palabra" input.txt
 
+E.g. ver todas las variantes en el cromosoma 10 (chr10) del archivo `life.tab`.
+
+    grep "chr10" life.tab
+
 Buscar un patrón
 ----------------
 
     grep -P "\bpalabra\b" input.txt
+
+E.g. ver todas las variantes del cromosoma 1, pero no del cromosoma 1?, en el archivo `life.tab`.
+
+<div class="alert alert-danger" role="alert">Con este comando obtendremos las variantes en el chr1, pero también el chr10, chr11, chr12, etc.<br />
+<pre><code>grep -P 'chr1' life.tab</code></pre>
+</div>
+
+<div class="alert alert-success" role="alert">Esta es la forma correcta:<br />
+<pre><code>grep -P '\bchr1\b' life.tab</code></pre>
+</div>
 
 Cruzar input con fichero de patrones en una columna
 ---------------------------------------------------
@@ -59,6 +77,15 @@ Eliminar las dos primeras columnas
 
     cut -f 3- input.txt
     awk '{for (i=3; i<NF; i++) printf $i " "; print $NF}' input.txt
+
+<div class="alert alert-info" role="alert">
+
+<ul>
+ <li>NF es una palabra especial (<em>builtin variable</em>) de AWK, significa "Número de Fields (columnas)".</li>
+ <li><a href="http://www.chemie.fu-berlin.de/chemnet/use/info/gawk/gawk_11.html" target="_new">Lista de builtins AWK<span class="glyphicon glyphicon-link"></span></a></li>
+</ul>
+
+</div>
 
 Agrupación de órdenes
 =====================
