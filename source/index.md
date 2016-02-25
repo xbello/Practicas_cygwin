@@ -117,7 +117,9 @@ E.g. ver todas las variantes del gen PKD1 del archivo input2.txt:
 
     grep -P "\bPKD1\b" input2.txt
 
-http://www.regular-expressions.info/
+<div class="alert alert-info" role="alert">
+ <a href="http://www.regular-expressions.info/" target="_new">Expresiones regulares<span class="glyphicon glyphicon-link"></span></a>
+</div>
 
 Cruzar input con fichero de patrones en una columna
 ---------------------------------------------------
