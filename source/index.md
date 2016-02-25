@@ -97,7 +97,7 @@ E.g. ver todas las variantes del gen PKD1 del archivo input2.txt:
 Buscar un patrón
 ----------------
 
-    grep -P '\bpalabra\b' input1.txt
+    grep -P "patrón" input1.txt
 
 E.g. ver todas las variantes del cromosoma 1, pero no del cromosoma 1?, en el archivo input1.txt
 
@@ -130,8 +130,7 @@ Eliminar las tres primeras columnas
 
     cut -f 4- input1.txt
     cut -f1-3 --complement input1.txt
-    awk '{for (i=4; i<NF; i++) printf $i " "; print $NF}' input1.txt
-    awk 'OFS="\t"{for (i=4; i<NF; i++) printf $i " "; print $NF}' input1.txt
+    awk '{for (i=4; i<NF; i++) printf $i "\t"; print $NF}' input1.txt
 
 <div class="alert alert-info" role="alert">
 
@@ -162,7 +161,7 @@ Concatenación
 Concatenación múltiple
 ----------------------
 
-    cat input1.txt | wc -l
+    cat input1.txt | grep TTT | sort -V | cut -f 1-3
 
 Manejo de ficheros en bloque
 ============================
@@ -172,7 +171,6 @@ Listar todos los ficheros con extensión .txt
 
     ls *.txt
     for file in *.txt; do echo $file; done
-    ls -1 *.txt
 
 Copiar todos los ficheros .txt cambiando su extensión a .tab
 ------------------------------------------------------------
@@ -206,7 +204,6 @@ Búsqueda de 1 gen
 (el carácter '\y' en awk equivale a '\b' en la mayoría de programas)
 
     awk '$7 ~ /\yPKD1\y/' input2.txt
-    perl -lane '$F[6] =~ /\bPKD1\b/ and print' input2.txt
 
 Lectura de un fichero línea a línea
 -----------------------------------
@@ -247,7 +244,7 @@ Tenemos un archivo con los posibles alelos para cada individuo, con líneas de e
 </div>
 <div class="collapse" id="ex_11-pista_1"><div class="well">Se utiliza el comando <code>cut</code>. Las opciones se pueden comprobar con <code>man cut</code>.</div></div>
 <div class="collapse" id="ex_11-pista_2"><div class="well">Las columnas están divididas con espacios. Cut define los campos con el flag <code>cut -d " "</code>.</div></div>
-<div class="collapse" id="ex_11-solucion"><div class="well"><code>cut -d " " -f 1-5 Ejercicio_1.txt</code>.</div></div>
+<div class="collapse" id="ex_11-solucion"><div class="well"><code>cut -d " " -f 1-5 Ejercicio_1.txt</code></div></div>
 
 * De este listado de 5 columnas, obtener sólo las variantes SNP, descartando los indels.
 
@@ -268,9 +265,9 @@ Tenemos un archivo con los posibles alelos para cada individuo, con líneas de e
 * Y si quisiésemos capturar los SNPs con una búsqueda de patrón?
 
 <div class="btn-group" role="group">
-<a class="btn btn-primary" role="button" data-toggle="collapse" href="#ex_13_solucion">Solución</a>
+<a class="btn btn-primary" role="button" data-toggle="collapse" href="#ex_14_solucion">Solución</a>
 </div>
-<div class="collapse" id="ex_13_solucion"><div class="well"><code>cut -d " " -f 1-5 Ejercicio_1.txt | grep -v " -"</code></div></div>
+<div class="collapse" id="ex_14_solucion"><div class="well"><code>cut -d " " -f 1-5 Ejercicio_1.txt | grep -v " -"</code></div></div>
 
 Ejercicio 2
 -----------
@@ -301,7 +298,7 @@ Tenemos un archivo procedente de una anotación con Annovar, con líneas de esta
 </div>
 <div class="collapse" id="ex_22-pista_1"><div class="well">El comando más recomendable es <code>sort</code>.</div></div>
 <div class="collapse" id="ex_22-pista_2"><div class="well">Para especificar un campo se indica <code>-kX</code>, siendo X el número del campo.</div></div>
-<div class="collapse" id="ex_22-pista_2"><div class="well">Para ordenar un campo numéricamente se indica <code>-kXn</code>, siendo X el número del campo.</div></div>
+<div class="collapse" id="ex_22-pista_3"><div class="well">Para ordenar un campo numéricamente se indica <code>-kXn</code>, siendo X el número del campo.</div></div>
 <div class="collapse" id="ex_22-solucion"><div class="well"><code>sort -k3,3n Ejercicio_2.txt</code></div></div>
 
 * Los dos pasos anteriores a la vez!
@@ -309,7 +306,7 @@ Tenemos un archivo procedente de una anotación con Annovar, con líneas de esta
 Y guardar los resultados en un archivo "Resultados.tab"
 
 <div class="btn-group" role="group">
-<a class="btn btn-primary" role="button" data-toggle="collapse" href="#ex_23-pista_1">Pista 1</a><a class="btn btn-primary" role="button" data-toggle="collapse" href="#ex_23-pista_2">Pista 2</a><a class="btn btn-primary" role="button" data-toggle="collapse" href="#ex_23-pista_1">Pista 1</a><a class="btn btn-primary" role="button" data-toggle="collapse" href="#ex_23-solucion">Solución</a>
+<a class="btn btn-primary" role="button" data-toggle="collapse" href="#ex_23-pista_1">Pista 1</a><a class="btn btn-primary" role="button" data-toggle="collapse" href="#ex_23-pista_2">Pista 2</a><a class="btn btn-primary" role="button" data-toggle="collapse" href="#ex_23-solucion">Solución</a>
 </div>
 <div class="collapse" id="ex_23-pista_1"><div class="well">La salida de un comando se redirige al siguiente con <code>|</code>.</div></div>
 <div class="collapse" id="ex_23-pista_2"><div class="well">La salida de un comando se guarda en un fichero con <code>&gt;</code>.</div></div>
