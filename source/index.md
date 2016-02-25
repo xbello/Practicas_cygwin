@@ -130,16 +130,18 @@ Cruzar input con fichero de patrones en una columna
 Eliminar las tres primeras columnas
 -----------------------------------
 
-    cut -f 4- input1.txt
-    cut -f1-3 --complement input1.txt
     awk '{for (i=4; i<NF; i++) printf $i "\t"; print $NF}' input1.txt
+    sed 's/^\S*\t\S*\t\S*\t//' input1.txt
+    perl -pe 's/^(\S+\t){3}//' input1.txt
+    cut -f1-3 --complement input1.txt
+    cut -f 4- input1.txt
 
 <div class="alert alert-info" role="alert">
 
 <ul>
- <li>OFS es una palabra especial (<em>builtin variable</em>) de AWK, significa "Output Field Separator".</li>
  <li>NF es una palabra especial (<em>builtin variable</em>) de AWK, significa "Number of Fields".</li>
  <li><a href="http://www.chemie.fu-berlin.de/chemnet/use/info/gawk/gawk_11.html" target="_new">Lista de builtins AWK<span class="glyphicon glyphicon-link"></span></a></li>
+ <li><em>\S</em> es el caracter no blanco, en contraste con <em>\s</em> o con <em>\t</em></li>
 </ul>
 
 </div>
@@ -190,19 +192,21 @@ Ejemplo práctico 1: Detección de variantes comunes
 Extracción y búsqueda en pasos separados
 ----------------------------------------
 
+    cut -f 1-5 annotation.GATK.txt
     cut -f 1-5 annotation.GATK.txt > variantes.GATK.txt
+    grep -f variantes.GATK.txt annotation.LIFE.txt
     grep -f variantes.GATK.txt annotation.LIFE.txt > variantes.compartidas.txt
 
 Extracción y búsqueda combinadas
 --------------------------------
 
-	grep -f <(cut -f 1-5 annotation.LIFE.txt) annotation.GATK.txt > variantes.compartidas.2.txt
+    grep -f <(cut -f 1-5 annotation.LIFE.txt) annotation.GATK.txt > variantes.compartidas.2.txt
 
-Ejemplo práctico 2: Filtrar variantes con un listado de genes
-=============================================================
+Ejemplo práctico 2a: Filtrar variantes con un listado de genes usando awk
+=========================================================================
 
-Búsqueda de 1 gen
------------------
+Búsqueda de 1 gen (en la columna 7)
+-----------------------------------
 (el carácter '\y' en awk equivale a '\b' en la mayoría de programas)
 
     awk '$7 ~ /\yPKD1\y/' input2.txt
@@ -220,6 +224,27 @@ Búsqueda de varios genes
     while read -r line; do
     awk -v gen="\\\\y$line\\\\y" '$7 ~ gen' input2.txt
     done < genes.txt
+
+Ejemplo práctico 2b: Filtrar variantes con un listado de genes usando grep
+==========================================================================
+
+Búsqueda de 1 gen
+-----------------
+
+    grep -P "PKD1" input2.txt
+    grep -P "PKD1:" input2.txt
+    grep -P "\bPKD1:" input2.txt
+
+Modificación del fichero de genes
+---------------------------------
+
+    sed 's/$/:/' genes.txt
+    sed 's/$/:/' genes.txt | sed 's/^/\\b/'
+
+Unificamos ambos comandos
+-------------------------
+
+    grep -f <(sed 's/$/:/' genes.txt | sed 's/^/\\b/') input2.txt
 
 Auto-evaluación
 ===============
